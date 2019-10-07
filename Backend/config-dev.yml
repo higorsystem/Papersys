@@ -1,0 +1,41 @@
+#
+# OBS: Configurações para o ambiente de desenvolvimento (config-dev.yml)
+# Tudo que você colocar/atualizar aqui, faça lá também!
+#
+
+# Swagger
+swagger:
+  resourcePackage: br.com.papersys.api.resources
+
+logging:
+  level: INFO
+  loggers:
+    br.com.papersys: DEBUG
+    org.hibernate.SQL: ALL
+  appenders:
+    - type: console
+
+database:
+  driverClass: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  minSize: 10
+  maxSize: 250
+  # A quantidade máxima de tempo para esperar em um pool vazio antes de lançar uma exceção
+  maxWaitForConnection: 10s
+  # Verifica se as conexões ociosas devem ou não ser validadas
+  checkConnectionWhileIdle: false
+  # Verifica se as conexões serão validadas ou não antes de serem emprestadas do pool. Se a conexão não for validada, ela será descartada do pool e outra será emprestada.
+  checkConnectionOnBorrow: true
+  removeAbandoned: true
+  logAbandonedConnections: true
+  #minIdleTime: 10s
+  #evictionInterval: 1s
+  removeAbandonedTimeout: 10s
+  properties:
+    charSet: UTF-8
+    hibernate.dialect: org.hibernate.dialect.SQLServerDialect
+    hibernate.show_sql: true
+
+  # informações do banco de dados
+  user: "sa"
+  password: "123456"
+  url: jdbc:sqlserver://127.0.0.1:1433;databaseName=Papersys;sendStringParametersAsUnicode=false

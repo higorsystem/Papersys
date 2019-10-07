@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.com.papersys</groupId>
+    <artifactId>papersys</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>papersys-backend</name>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <junit.version>4.11</junit.version>
+        <jodatime.version>2.10.3</jodatime.version>
+        <dropwizard.new.version>2.0.0-rc3</dropwizard.new.version>
+        <sqlserver.version>7.2.1.jre11</sqlserver.version>
+        <apache.commons.version>3.7</apache.commons.version>
+        <hibernate.version>5.4.5.Final</hibernate.version>
+        <dropwizard.version.db>2.0.0-rc10</dropwizard.version.db>
+        <dropwizard.hibernate>2.0.0-rc10</dropwizard.hibernate>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>${sqlserver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>${jodatime.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <!-- Apache commons -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <!-- Dropwizard -->
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-core</artifactId>
+            <version>${dropwizard.new.version}</version>
+        </dependency>
+
+        <!-- Dropwizard DB -->
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-db</artifactId>
+            <version>${dropwizard.version.db}</version>
+        </dependency>
+
+        <!-- Dropwizard Hibernate -->
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-hibernate</artifactId>
+            <version>${dropwizard.hibernate}</version>
+        </dependency>
+
+        <!-- Apache lang hashcode e equals -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.commons.version}</version>
+        </dependency>
+
+        <!-- Configuração do Swagger -->
+        <dependency>
+            <groupId>io.federecio</groupId>
+            <artifactId>dropwizard-swagger</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+
+        <!-- Dependencias do Java 10 ou superior -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+    </dependencies>
+    <build>
+    <finalName>papersys-backend</finalName>
+    <plugins>
+        <!-- Ensure compilation is done under Java 11 in all environments -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+            <configuration>
+                <source>11</source>
+                <target>11</target>
+                <showDeprecation>true</showDeprecation>
+                <showWarnings>true</showWarnings>
+            </configuration>
+        </plugin>
+        <!-- Generates JavaDocs during package -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                    <configuration>
+                        <doclint>none</doclint>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <!-- Generates a source code JAR during package -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.1.0</version>
+            <executions>
+                <execution>
+                    <id>attach-sources</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-shade-plugin</artifactId>
+            <version>3.2.1</version>
+            <configuration>
+                <createDependencyReducedPom>true</createDependencyReducedPom>
+                <filters>
+                    <filter>
+                        <artifact>*:*</artifact>
+                        <excludes>
+                            <exclude>META-INF/*.SF</exclude>
+                            <exclude>META-INF/*.DSA</exclude>
+                            <exclude>META-INF/*.RSA</exclude>
+                        </excludes>
+                    </filter>
+                </filters>
+            </configuration>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>shade</goal>
+                    </goals>
+                    <configuration>
+                        <transformers>
+                            <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                            <transformer
+                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <mainClass>br.com.papersys.api.PaperSysApiApplication</mainClass>
+                            </transformer>
+                        </transformers>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+        <!-- Para formatação do código Java -->
+        <plugin>
+            <groupId>com.coveo</groupId>
+            <artifactId>fmt-maven-plugin</artifactId>
+            <version>2.9</version>
+            <configuration>
+                <filesNamePattern>.*\.java</filesNamePattern>
+                <skip>false</skip>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>format</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+</project>
